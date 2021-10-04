@@ -1,0 +1,75 @@
+* 
+{
+    background-color:        #1e222a;
+    border-color:            #282c34;
+    text-color:              #ABB2BF;
+    font:                    "Sarasa Term K Semibold 11";
+}
+
+window 
+{
+	location:	             center;
+	height:		             46%;
+	width:		             45%;
+	orientation:             horizontal;
+    padding:                 10px;
+    border:                  2px;
+    border-color:            #56B6C2;
+}
+
+inputbar 
+{
+    border:                   0 0 2px 0;
+    border-color:             #56B6C2;
+    children:                 [prompt,entry];
+}
+
+prompt
+{
+    padding:                  8px 8px 8px 8px ;
+    border:                   0 0 0 0;
+    text-color:               #ABB2BF;
+    font:                     "Sarasa Term K Semibold 12";
+}
+
+entry
+{
+    padding:                  8px;
+    text-color:               #ABB2BF;
+    font:                    "Sarasa Term K Semibold 13";
+
+}
+
+listview 
+{
+    cycle:                    false;
+    margin:                   0 0 1px 0;
+    scrollbar:                false;
+    columns:                  2;
+}
+
+element 
+{
+    border:                   0 0 1px 0;
+    padding:                  5px;
+}
+
+element selected
+{
+    text-color:               #ABB2BF;
+    background-color:         #32363e;
+}
+
+element-text
+{
+    background-color:         inherit;
+    text-color:               inherit;
+    margin:                   1% 0.5% -0.5% 0.5%;
+}
+
+element-icon
+{
+    size:                     35px ;
+    margin:                   0 12px 0 0;
+	background-color:         inherit;
+}

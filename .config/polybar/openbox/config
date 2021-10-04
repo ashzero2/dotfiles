@@ -1,0 +1,306 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+background = #394248
+foreground = #d3c6aa   
+
+red     = #e67e80
+blue    = #7fbbb3
+yellow  = #dbbc7f
+green   = #a7c080
+magenta = #d699b6
+cyan    = #83c092
+
+over = #5f6a70
+mine = #2F383E
+
+[bar/example]
+tray-position = right
+monitor = eDP1
+width =  100%
+height = 26
+padding-left =1
+padding-right =1
+background = ${colors.background}
+foreground = ${colors.foreground}
+bottom = false
+border-top-size = 5
+border-bottom-size = 5
+border-top-color = ${colors.background}
+border-bottom-color = ${colors.background}
+tray-background = #4b565c
+
+line-size = 2
+wm-restack = bspwm
+
+modules-left = rl launcher rr sep rl bspwm rr 
+modules-center =    
+modules-right = rl filesystem rr sep rl temperature mem rr sep rl pulseaudio battery xbacklight rr sep rl time rr sep rl wlan powermenu rr
+
+font-0 = JetBrainsMono Nerd Font:style=Bold:pixelsize=10;3
+font-1 = JetBrainsMono Nerd Font:size=18;5
+font-2 = Material Design Icons:style=Bold:size=12;3
+font-3 = unifont:fontformat=truetype:size=13:antialias=true;
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+mount-0 = /
+format-mounted = <label-mounted>
+format-mounted-background = ${colors.mine}
+format-mounted-foreground = ${colors.magenta}
+label-mounted =  "󰉋 %used%"
+
+format-unmounted = <label-unmounted>
+format-unmounted-prefix =
+label-unmounted = %mountpoint%: not mounted
+
+[module/pulseaudio]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_03_00.6.analog-stereo
+use-ui-max = false
+interval = 5
+
+format-volume = "󰕾 <label-volume>"
+format-volume-foreground = ${colors.yellow}
+format-volume-background = ${colors.mine}
+format-volume-padding = 1
+
+format-muted = "󰝟"
+format-muted-foreground = ${colors.yellow}
+format-muted-background = ${colors.mine}
+format-muted-padding = 1
+
+label-volume = %percentage%%
+label-muted = " Muted"
+
+
+[module/rl]
+type = custom/text
+content = %{T3}%{T-}
+content-foreground = ${colors.mine}
+
+[module/rr]
+type = custom/text
+content = %{T3}%{T-}
+content-foreground = ${colors.mine}
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 70
+
+format = <label>
+format-background = ${colors.mine}
+format-foreground = ${colors.blue}
+format-warn = <label-warn>
+format-padding = 0
+label = 󰜗 %temperature%
+label-warn = %temperature%
+label-padding-right = 1
+
+[module/bspwm]
+type = internal/xworkspaces
+
+pin-workspaces = true
+inline-mode = true
+enable-click = true
+enable-scroll = true
+reverse-scroll = false
+
+format = <label-state>
+
+icon-0 = Home;%{F#F9DE8F}󱇐
+icon-1 = Web;%{F#ff9b93}󰇧
+icon-2 = Learn;%{F#95e1d3}󰂾
+icon-3 = Chat;%{F#81A1C1}󰔁
+icon-4 = Vm;%{F#A3BE8C}󱄅
+icon-5 = Misc;%{F#d699b6}󰢻
+
+label-separator = " "
+label-separator-background = ${colors.mine}
+
+label-active =  %icon%  
+label-active-foreground = ${colors.foreground}
+label-active-underline  = ${colors.foreground}  
+label-active-padding = 2
+label-active-background = ${colors.mine}
+
+label-occupied = %icon%  
+label-occupied-foreground = #646870  
+label-occupied-background = ${colors.mine}
+label-occupied-overline = ${colors.over}
+label-occupied-padding = 2
+
+label-empty = %icon%
+label-empty-foreground =   ${colors.foreground}
+label-empty-padding = 2
+label-empty-background = ${colors.mine}
+
+
+label-urgent = %icon%
+label-urgent-foreground = #88C0D0
+label-urgent-background = ${colors.mine}
+label-urgent-padding = 2
+
+[module/time]
+type = internal/date
+interval = 60
+format = <label>
+format-foreground = ${colors.cyan}
+format-background = ${colors.mine}
+date = 󰥔 %I:%M %p
+time-alt = 󰃭 %a, %b %d%
+
+label = %date%%time%
+
+
+[module/mem]
+type = custom/script
+exec = free -m | sed -n 's/^Mem:\s\+[0-9]\+\s\+\([0-9]\+\)\s.\+/\1/p'
+format = <label>
+format-background = ${colors.mine}
+format-foreground = ${colors.cyan}
+label = 󰘚 %output% MB
+label-padding = 1
+
+[module/updates]
+type = custom/script
+exec = doas xbps-install -S > /dev/null 2>&1; xbps-updates
+format = <label>
+interval = 4600 
+label =  %output%  
+label-padding = 2
+label-foreground = #BF616A
+
+[module/powermenu]
+type = custom/text 
+content ="" 
+content-padding = 1
+click-left = ~/.config/rofi/powermenu.sh
+content-foreground =  #e06c75
+content-background = ${colors.mine}
+
+[module/wlan]
+type = internal/network
+interface = wlp3s0
+interval = 3.0
+format-connected =  <label-connected>
+format-connected-padding = 1
+format-disconnected = "󰤣 "
+format-disconnected-background = ${colors.mine}
+format-disconnected-foreground = #A3BE8C 
+label-connected = "󰤪 " 
+format-connected-foreground = #A3BE8C 
+format-connected-background = ${colors.mine}
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC0
+full-at = 98
+
+format-charging = <label-charging>
+label-charging = 󰣐+%percentage%%
+
+format-charging-padding = 1
+format-charging-foreground = ${colors.red}
+format-charging-background = ${colors.mine}
+
+format-discharging = <label-discharging>
+label-discharging = 󰣐 %percentage%%
+
+format-discharging-foreground = ${colors.green}
+format-discharging-background = ${colors.mine}
+format-discharging-padding = 1
+
+format-full-prefix = "  "
+format-full-background = ${colors.mine}
+format-full-padding = 1
+format-full-foreground = ${colors.green}
+format-background = ${colors.mine}  
+
+ramp-capacity-0 = "󰂎" 
+ramp-capacity-1 = "󰂎" 
+ramp-capacity-2 = "󱊡" 
+ramp-capacity-3 = "󱊢" 
+ramp-capacity-4 = "󱊣"
+
+[module/volume]
+type = custom/script
+exec = amixer get Master | awk '$0~/%/{print $4}' | tr -d '[]'
+format = <label>
+internal = 5.0
+label = %output% 
+label-foreground = #BF616A
+label-padding = 1
+
+[module/xbacklight]
+type = internal/xbacklight
+format = <label>
+format-background = ${colors.mine}
+label = "󰃠 %percentage%"
+format-foreground = ${colors.blue}
+format-padding = 1
+
+[module/cpu]
+type = internal/cpu
+interval = 2.5
+
+format = <label> 
+
+label = 󰣖 %percentage%%
+
+format-background = ${colors.mine}
+format-foreground = #989cff
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...
+
+[module/launcher]
+type = custom/text
+content = "Ash"
+;content = "󰯟"
+; content-foreground = ${colors.red}
+content-background = ${colors.mine}
+content-padding = 0
+click-left = rofi -show drun
+click-right = maim -s -o | xclip -selection clipboard -t image/png
+
+[module/pic]
+type = custom/text
+content = " 󰘮  "
+content-foreground = ${colors.blue}
+content-background = ${colors.mine}
+content-padding = 0
+click-left = pkill dunst
+
+[module/sep]
+type = custom/text
+content = " "
+
+[module/win]
+type = custom/script
+exec = ~/.config/polybar/window.sh
+format = <label>
+interval = 1
+format-background = ${colors.mine}
+format-foreground = ${colors.cyan}
+label = %output%

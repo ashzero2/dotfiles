@@ -1,0 +1,138 @@
+add_newline = true
+
+#format = """
+#[ash@void](bold red) [on](bold white) $directory
+#[✦ »](blue) """
+
+[time]
+disabled = true
+format = '[$time]($style) '
+time_format = "%I:%M"
+
+[line_break]
+disabled=false
+
+[character]
+success_symbol="[»](blue)"
+error_symbol="[»](blue)"
+
+[battery]
+full_symbol = "🔋"
+charging_symbol = "󰢟 "
+discharging_symbol = "󱃍 "
+
+[[battery.display]]
+threshold = 20
+style = "red"
+
+[hostname]
+ssh_only = false
+format =  "[ash@void](bold red) [on](bold white) "
+trim_at = ".companyname.com"
+disabled = false
+
+[aws]
+symbol = " "
+disabled = false
+
+[lua]
+disabled = false
+
+[cmake]
+symbol = "cmake"
+disabled = false
+
+[conda]
+symbol = " "
+disabled = false
+
+[dart]
+symbol = " "
+disabled = false
+
+[directory]
+home_symbol = " "
+read_only = "  "
+style = "bold blue"
+truncation_length = 2
+truncation_symbol = "./"
+
+[elixir]
+symbol = " "
+disabled = false
+
+[elm]
+symbol = " "
+disabled = false
+
+[git_branch]
+symbol = "󰊢  "
+format="[on](bold white) [$symbol$branch]($style) "
+
+[golang]
+symbol = " "
+disabled = false
+
+[hg_branch]
+symbol = " "
+
+[java]
+symbol = " "
+disabled = true
+
+[julia]
+symbol = " "
+disabled = false
+
+[memory_usage]
+disabled = true
+format = "[via ](bold white)[${ram}]($style) "
+threshold = -1
+style = "bold green"
+
+[nim]
+symbol = " "
+disabled = false
+
+[nix_shell]
+symbol = " "
+disabled = false
+
+[nodejs]
+symbol = " "
+disabled = false
+
+[package]
+symbol = " "
+disabled = false
+
+[perl]
+symbol = " "
+disabled = false
+
+[php]
+symbol = " "
+disabled = false
+
+[python]
+symbol = " "
+disabled = true
+
+[ruby]
+symbol = " "
+disabled = false
+
+[rust]
+symbol = " "
+disabled = false
+
+[swift]
+symbol = "ﯣ "
+disabled = false
+
+[status]
+style = ""
+symbol = ""
+format = '[\[$symbol $common_meaning$signal_name$maybe_int\]]($style) '
+map_symbol = false
+disabled = true

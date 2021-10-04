@@ -1,0 +1,10 @@
+/* vim:ft=css */
+configuration {
+  modi:"window,run,kill:~/.config/rofi/kill.sh";
+  display-drun: "Apps :";
+  display-kill: "kill :";
+  show-icons: true;
+  icon-theme: "Tela-circle-dark";
+  font: "Sarasa Term K 10";
+  theme: "~/.config/rofi/bar.rasi";
+}

@@ -1,0 +1,42 @@
+#! /bin/sh
+
+#-------------------- Hotkey and Windows --------------------
+
+pgrep -x sxhkd > /dev/null || sxhkd &
+$HOME/.config/polybar/launch.sh
+
+bspc monitor -d Home Web Code Chat Misc
+
+#-------------------- bspc rules -----------------------------
+
+bspc config border_width         2
+bspc config window_gap           8
+bspc config focus_follows_pointer	true
+bspc config split_ratio          0.50
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc config focused_border_color "#61AFEF"
+bspc config normal_border_color "#4B5263"
+
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a TelegramDesktop desktop='^4'
+bspc rule -a Chromium desktop='^2'
+bspc rule -a Firefox desktop='^2'
+
+bspc rule -a Screenkey manage=off
+
+#-------------------- Autostart -------------------------------
+
+xsetroot -cursor_name left_ptr &
+#2bspwm &
+xrdb -merge .Xresources &
+feh --bg-scale Pictures/uwall1.jpg 
+xbacklight -set 20
+dunst &
+doas rfkill unblock wifi
+greenclip daemon &
+picom --config .config/picom/picom.conf --experimental-backends
+
+#-------------------- End --------------------------------------
+
