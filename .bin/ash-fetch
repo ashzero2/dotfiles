@@ -1,0 +1,65 @@
+#colors
+bold="$(tput bold)"
+magenta="$(tput setaf 5)"
+green="$(tput setaf 2)"
+white="$(tput setaf 7)"
+blue="$(tput setaf 4)"
+red="$(tput setaf 1)"
+black="$(tput setaf 0)"
+yellow="$(tput setaf 3)"
+cyan="$(tput setaf 6)"
+
+c0="${reset}${black}"
+c1="${reset}${red}"
+c2="${reset}${green}"
+c3="${reset}${yellow}"
+c4="${reset}${blue}"
+c5="${reset}${magenta}"
+c6="${reset}${cyan}"
+c7="${reset}${white}"
+c10="${reset}${green}"
+
+# values
+#user="$(whoami)@$(hostname) on $( cat /sys/devices/virtual/dmi/id/product_family)"
+user="$(whoami)@$(hostname) on Void"
+wm="$(echo $DESKTOP_SESSION)"
+pkg="$(xbps-query -l | wc -l ) pkgs"
+kernel="$(uname -r)"
+uptime="$(uptime -p | sed 's/up //')"
+init="$(cat /proc/1/comm)"
+shell=$(zsh --version | grep gnu | awk '{print $1,$2}')
+
+#getting ram info
+while IFS=':k '  read -r key val _; do
+                case $key in
+                    MemTotal)
+                        mem_used=$((mem_used + val))
+                        mem_full=$val
+                    ;;
+
+                    Shmem)
+                        mem_used=$((mem_used + val))
+                    ;;
+
+                    MemFree|Buffers|Cached|SReclaimable)
+                        mem_used=$((mem_used - val))
+                    ;;
+                esac
+            done < /proc/meminfo
+
+            mem_used=$((mem_used / 1024))M
+            mem_full=$((mem_full / 1024))M
+
+## OUTPUT
+
+cat <<EOF               
+${c2}    _______     ${c10}$user
+${c2} _ \______ -    ${c7}-----------------
+${c2}| \  ___  \ |   ${c10}kernel ${c4}» ${c7}$kernel
+${c2}| | /   \ | |   ${c10}pkgs   ${c4}» ${c7}$pkg
+${c2}| | \___/ | |   ${c10}uptime ${c4}» ${c7}$uptime
+${c2}| \______ \_|   ${c10}shell  ${c4}» ${c7}$shell
+${c2} -_______\      ${c10}wm     ${c4}» ${c7}$wm
+EOF
+# ${c10}󰅴  ${c4}» ${c7}$shell
+# ${c7}󱓻 ${c1}󱓻 ${c2}󱓻 ${c3}󱓻 ${c4}󱓻 ${c5}󱓻 ${c6}󱓻   ${c10}󰧲  ${c4}» ${c7}$init
